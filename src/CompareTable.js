@@ -1,6 +1,9 @@
 import React from 'react';
 import './css/CompareTable.css'
 
+/*
+ *	Tree species name is given as all caps
+ */
 function titleCase(str) {
 
 	var words = str.split(' ');

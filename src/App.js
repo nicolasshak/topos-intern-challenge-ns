@@ -14,55 +14,33 @@ class App extends Component {
 
     this.state = {
       hover: '00000',
-      selected: undefined,
-      activePath: undefined,
       center: [ -73.915242, 40.730610],
       zoom: 1,
       valueMap: totalTrees
     }
 
     this.onHover = this.onHover.bind(this);
-    this.onClick = this.onClick.bind(this);
     this.selectArea = this.selectArea.bind(this);
   }
 
-  recenter() {
-
-    this.setState({
-      center: [ -73.915242, 40.730610],
-      zoom: 1
-    });
-  }
-
-  selectArea(feature) {
-
-    this.getStats(feature.properties.postalCode)
-
-    this.setState({
-      selected: feature.properties.postalCode,
-      center: [feature.properties.longitude, feature.properties.latitude],
-      zoom: 2
-    });
-  }
+  /*
+   *  Handlers
+   */
 
   onHover(feature, e) {
 
     this.setState({hover: feature.properties.postalCode})
   }
 
-  onClick(feature, e) {
+  selectArea(feature) {
 
-    this.handleHighlight(e);
-    this.selectArea(feature);
+    this.getStats(feature.properties.postalCode);
+    this.focus(feature);
   }
 
   /*
    *  Helpers
    */
-
-  handleHighlight(e) {
-    console.log(e.target.className);
-  } 
 
   getStats(zipcode) {
 
@@ -83,16 +61,31 @@ class App extends Component {
       });
   }
 
+  focus(feature) {
+    this.setState({
+      selected: feature.properties.postalCode,
+      center: [feature.properties.longitude, feature.properties.latitude],
+      zoom: 2
+    });
+  }
+
+  recenter() {
+
+    this.setState({
+      center: [ -73.915242, 40.730610],
+      zoom: 1
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <CompareTable selected={this.state.selected} data={this.state.data} />
         <div className="map-wrapper">
           <ChoroplethMap
-            selected={this.state.select}
             valueMap={this.state.valueMap}
             onFeatureHover={this.onHover}
-            onFeatureClick={this.onClick}
+            onFeatureClick={this.selectArea}
             center={this.state.center}
             zoom={this.state.zoom} />
           <div className="current-wrapper" onClick={() => this.recenter()}>  
