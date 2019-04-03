@@ -69,18 +69,21 @@ const ChoroplethMap = (props) => {
                       stroke: "#000000",
                       strokeWidth: 0.75,
                       outline: "none",
+                      cursor: "pointer"
                     },
                     hover: {
                       fill: "#EEEEEE",
                       stroke: "#607D8B",
                       strokeWidth: 0.75,
                       outline: "none",
+                      cursor: "pointer"
                     },
                     pressed: {
                       fill: "#FF5722",
                       stroke: "#607D8B",
                       strokeWidth: 0.75,
                       outline: "none",
+                      cursor: "pointer"
                     },
                   }}
                   onClick={props.onFeatureClick}
