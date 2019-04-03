@@ -52,7 +52,7 @@ const CompareTable = (props) => {
 	}
 
 	if(rows.length === 0 && props.data !== undefined) {
-		rows = <div>There doesn't seem to be any data on this zipcode</div>
+		rows = <div>There doesn't seem to be any data on this zipcode.</div>
 	}
 
 	return(

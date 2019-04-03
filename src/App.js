@@ -15,12 +15,14 @@ class App extends Component {
     this.state = {
       hover: '00000',
       selected: undefined,
+      activePath: undefined,
       center: [ -73.915242, 40.730610],
       zoom: 1,
       valueMap: totalTrees
     }
 
     this.onHover = this.onHover.bind(this);
+    this.onClick = this.onClick.bind(this);
     this.selectArea = this.selectArea.bind(this);
   }
 
@@ -47,6 +49,20 @@ class App extends Component {
 
     this.setState({hover: feature.properties.postalCode})
   }
+
+  onClick(feature, e) {
+
+    this.handleHighlight(e);
+    this.selectArea(feature);
+  }
+
+  /*
+   *  Helpers
+   */
+
+  handleHighlight(e) {
+    console.log(e.target.className);
+  } 
 
   getStats(zipcode) {
 
@@ -76,7 +92,7 @@ class App extends Component {
             selected={this.state.select}
             valueMap={this.state.valueMap}
             onFeatureHover={this.onHover}
-            onFeatureClick={this.selectArea}
+            onFeatureClick={this.onClick}
             center={this.state.center}
             zoom={this.state.zoom} />
           <div className="current-wrapper" onClick={() => this.recenter()}>  

@@ -13,13 +13,13 @@ import './css/ChoroplethMap.css';
 
 const popScale = scaleLinear()
   .domain([0, 7500, 20000])
-  .range(['#CFD8DC', '#607D8B', '#37474F']);
+  .range(['#F0F7DA', '#77AB59', '#234D20']);
 
 function projection(width, height, config) {
   return geoMercator()
     .rotate([ -73.935242, 40.730610])
     .scale(config.scale)
-    .translate([(width) / 2, (height)/2.2])
+    .translate([(width) / 2, (height)/2.2]);
 }
 
 const ChoroplethMap = (props) => {
@@ -51,6 +51,11 @@ const ChoroplethMap = (props) => {
             scale: 100000,
           }}
           >
+          {
+           /* 
+            * Had to turn off panning since it messed with the animated transition
+            */
+          }
           <ZoomableGroup center={[lng, lat]} zoom={zoom} disablePanning={true}>
             <Geographies geography="./nyczipcodetabulationareas.json">
               {(geographies, projection) => geographies.map((geography, i) => (
@@ -66,7 +71,7 @@ const ChoroplethMap = (props) => {
                       outline: "none",
                     },
                     hover: {
-                      fill: "#607D8B",
+                      fill: "#EEEEEE",
                       stroke: "#607D8B",
                       strokeWidth: 0.75,
                       outline: "none",
